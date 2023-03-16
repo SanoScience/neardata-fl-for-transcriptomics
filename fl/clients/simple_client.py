@@ -1,5 +1,5 @@
 from typing import Dict, OrderedDict
-from numpy import ScalarType, ndarray
+from numpy import ndarray
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -22,9 +22,9 @@ def load_data():
         ]
     )
 
-    trainset = CIFAR10("./datasets", train=True,
+    trainset = CIFAR10("./ml/data/cifar_10", train=True,
                        download=True, transform=transform)
-    testset = CIFAR10("./datasets", train=False,
+    testset = CIFAR10("./ml/data/cifar_10", train=False,
                       download=True, transform=transform)
 
     trainloader = DataLoader(trainset, batch_size=32, shuffle=True)
