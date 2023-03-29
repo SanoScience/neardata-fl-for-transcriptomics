@@ -1,3 +1,4 @@
+from typing import Dict, List, NamedTuple, Tuple, TypedDict
 import torch
 import torch.nn as nn
 
@@ -17,7 +18,7 @@ def train(net, dataloader, epochs_num):
             optimizer.step()
 
 
-def test(net, dataloader):
+def test(net, dataloader) -> Tuple[float, float]:
     criterion = nn.CrossEntropyLoss()
     correct, total, loss = 0.0, 0.0, 0.0
     with torch.no_grad():
@@ -30,3 +31,10 @@ def test(net, dataloader):
             correct += (predicted == labels).sum().item()
     accuracy = correct / total
     return loss, accuracy
+
+
+def weighted_average(metrics: List[Tuple[float, int, Dict[str, float]]]) -> Tuple[float, int, Dict[str, float]]:
+    total_accuracy = sum(
+        [metric[1]['accuracy']*metric[0] for metric in metrics])
+    num_examples = sum([metric[0] for metric in metrics])
+    return {"num_examples": num_examples, "accuracy": total_accuracy/num_examples}

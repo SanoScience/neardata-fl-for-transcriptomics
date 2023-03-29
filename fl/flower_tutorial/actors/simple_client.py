@@ -1,4 +1,4 @@
-from typing import OrderedDict
+from typing import Dict, OrderedDict, Tuple
 
 import flwr as fl
 from numpy import ndarray
@@ -30,7 +30,7 @@ class CifarClient(fl.client.NumPyClient):
         train(self.net, self.trainloader, epochs_num=1)
         return self.get_parameters(), self.num_examples["trainset"], {}
 
-    def evaluate(self, parameters, config):
+    def evaluate(self, parameters, config) -> Tuple[float, int, Dict[str, float]]:
         self.set_parameters(parameters)
         loss, accuracy = test(self.net, self.testloader)
-        return float(loss), self.num_examples["testset"], {"accuracy": float(accuracy)}
+        return float(loss), self.num_examples["testset"], {'accuracy': accuracy}
