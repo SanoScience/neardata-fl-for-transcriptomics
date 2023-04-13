@@ -20,8 +20,10 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-
-
+### Install also neardata-fl-for-transcriptomics from source to run scripts from the root dir.
+```
+pip install .
+```
 ## License
 
 
