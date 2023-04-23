@@ -1,9 +1,10 @@
 #!/bin/bash
+# usage: sbatch -n 4 run_flower_tutorial.sh 3
+# will run a server and 3 clients on 4 nodes
+
 
 #SBATCH -J flower-tutorial
-#SBATCH -N 1
-#SBATCH --ntasks=3
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=1
 #SBATCH --time=00:10:00
 #SBATCH -A plgsano4-cpu
 #SBATCH -p plgrid
@@ -17,7 +18,14 @@ cd ..
 # requires running run_configure_venv.sh prior
 source ./venv/bin/activate
 
-srun --ntasks=1 --cpus-per-task=$SLURM_CPUS_PER_TASK python fl/flower_tutorial/scripts/run_server.py &
-srun --ntasks=1 --cpus-per-task=$SLURM_CPUS_PER_TASK python fl/flower_tutorial/scripts/run_client.py &
-srun --ntasks=1 --cpus-per-task=$SLURM_CPUS_PER_TASK python fl/flower_tutorial/scripts/run_client.py &
+SERVER_NODE=${SLURM_JOB_NODELIST:0:7}
+SERVER_NODE=${SERVER_NODE//[}
+echo $SERVER_NODE
+
+srun --ntasks=1 --nodelist=$SERVER_NODE --output="./slurm_scripts/output_server.out" python fl/flower_tutorial/scripts/run_server.py --server-ip=$SERVER_NODE &
+sleep 5
+for ((i=0;i<$1;i++))
+do
+srun --ntasks=1 --output="./slurm_scripts/output_client_$i.out" python fl/flower_tutorial/scripts/run_client.py --server-ip=$SERVER_NODE &
+done
 wait
