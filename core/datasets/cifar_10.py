@@ -1,8 +1,9 @@
 from typing import TypedDict
+
 import torch
 import torchvision
-from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
+from torch.utils.data import DataLoader
 
 
 class NumExamples(TypedDict):

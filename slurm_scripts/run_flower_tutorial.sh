@@ -22,10 +22,10 @@ SERVER_NODE=${SLURM_JOB_NODELIST:0:7}
 SERVER_NODE=${SERVER_NODE//[}
 echo $SERVER_NODE
 
-srun --ntasks=1 --nodelist=$SERVER_NODE --output="./slurm_scripts/output_server.out" python fl/flower_tutorial/scripts/run_server.py --server-ip=$SERVER_NODE &
+srun --ntasks=1 --nodelist=$SERVER_NODE --output="./slurm_scripts/output_server.out" python fl/flower_tutorial/scripts/run_server.py --server-ip=$SERVER_NODE --num-clients=$1 &
 sleep 5
 for ((i=0;i<$1;i++))
 do
-srun --ntasks=1 --output="./slurm_scripts/output_client_$i.out" python fl/flower_tutorial/scripts/run_client.py --server-ip=$SERVER_NODE &
+srun --ntasks=1 --output="./slurm_scripts/output_client_$i.out" python fl/flower_tutorial/scripts/run_client.py --server-ip=$SERVER_NODE --client-id=$i &
 done
 wait
