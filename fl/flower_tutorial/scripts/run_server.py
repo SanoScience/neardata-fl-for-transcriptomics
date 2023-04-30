@@ -1,9 +1,18 @@
+from core.utils.cifar_10 import weighted_average
 import argparse
 import socket
+import os
 
 import flwr as fl
+import neptune
+from dotenv import load_dotenv
+load_dotenv()
 
-from core.utils.cifar_10 import weighted_average
+
+run = neptune.init_run(
+    project="jasiek.przybyszewski/neardata-fl-for-transcriptomics",
+    api_token=os.environ.get("NEPTUNE_API_TOKEN"),
+)
 
 parser = argparse.ArgumentParser("federated_client")
 parser.add_argument("--server-ip", dest="server_ip",

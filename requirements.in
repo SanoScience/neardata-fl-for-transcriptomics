@@ -2,3 +2,5 @@ torch
 torchvision
 torchaudio
 flwr
+neptune
+python-dotenv

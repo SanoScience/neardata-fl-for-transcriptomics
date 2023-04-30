@@ -24,6 +24,10 @@ pip install -r requirements.txt
 ```
 pip install .
 ```
+### We use NeptuneAI as the MLOps tool. The api token should be stored in .env file, so that python-dotenv package can load it as an env variable. The .env file should have the following entry, where 'xxx' is the api token:
+```bash
+NEPTUNE_API_TOKEN=xxx
+```
 ## License
 
 

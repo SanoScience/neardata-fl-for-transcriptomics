@@ -133,3 +133,6 @@ data/
 
 # SLURM .out files
 *.out
+
+# NeptuneAI logs
+.neptune/
