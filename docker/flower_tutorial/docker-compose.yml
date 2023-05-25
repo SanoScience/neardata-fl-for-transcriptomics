@@ -1,0 +1,7 @@
+services:
+  client:
+    build:
+      context: ../../
+      dockerfile: ./docker/flower_tutorial/client/Dockerfile
+    environment:
+    - CLIENT_ID=1
