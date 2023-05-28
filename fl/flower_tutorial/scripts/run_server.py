@@ -17,7 +17,7 @@ run = neptune.init_run(
     capture_hardware_metrics=False,
 )
 
-parser = argparse.ArgumentParser("federated_client")
+parser = argparse.ArgumentParser("federated_server")
 parser.add_argument("--server-ip", dest="server_ip",
                     help="ip of the server", default="localhost")
 parser.add_argument("--num-clients", dest="num_clients", help="number of clients in the federation", default=2, type=int)

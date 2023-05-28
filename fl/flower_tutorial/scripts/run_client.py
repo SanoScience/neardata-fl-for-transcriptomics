@@ -1,5 +1,6 @@
 import argparse
 import socket
+import uuid
 
 import flwr
 
@@ -10,13 +11,14 @@ from fl.flower_tutorial.actors.simple_client import CifarClient
 parser = argparse.ArgumentParser("federated_client")
 parser.add_argument("--server-ip", dest="server_ip",
                     help="ip of the server", default="localhost")
-parser.add_argument("--client-id", dest="client_id", help="unique client id", required=True)
+parser.add_argument("--client-id", dest="client_id", help="unique client id", default=uuid.uuid4().int)
 
 args = parser.parse_args()
 
 server_hostname = socket.gethostname()
 print("Server hostname: ", server_hostname)
 print("Server address: ", socket.gethostbyname(server_hostname))
+print("Client ID: ", args.client_id)
 
 DEFAULT_DATASET_ROOT = "./data/raw/cifar_10"
 net = SimpleCNN()
