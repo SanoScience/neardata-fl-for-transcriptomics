@@ -4,4 +4,15 @@ services:
       context: ../../
       dockerfile: ./docker/flower_tutorial/client/Dockerfile
     environment:
-    - CLIENT_ID=1
+      SERVER_IP: "localhost"
+    network_mode: "host"
+  server:
+    build:
+      context: ../../
+      dockerfile: ./docker/flower_tutorial/server/Dockerfile
+    environment:
+      SERVER_IP: "localhost"
+      NUM_CLIENTS: 2
+    ports:
+      - 8081:8081
+    network_mode: "host"

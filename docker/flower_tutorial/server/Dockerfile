@@ -3,6 +3,7 @@
 FROM python:3.10-slim-buster
 
 ENV SERVER_IP "localhost"
+ENV NUM_CLIENTS 2
 
 WORKDIR /app
 
@@ -18,4 +19,4 @@ RUN pip3 install -e .
 
 COPY . .
 
-CMD python3 fl/flower_tutorial/scripts/run_client.py --server-ip=$SERVER_IP
+CMD python3 fl/flower_tutorial/scripts/run_server.py --server-ip=$SERVER_IP --num-clients=$NUM_CLIENTS
