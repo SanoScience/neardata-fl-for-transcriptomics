@@ -1,6 +1,6 @@
 import argparse
 import socket
-import uuid
+import secrets
 import logging
 
 import flwr
@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser("federated_client")
 parser.add_argument("--server-ip", dest="server_ip",
                     help="ip of the server", default="localhost")
 parser.add_argument("--client-id", dest="client_id",
-                    help="unique client id", default=uuid.uuid4().int & (1 << 64)-1)
+                    help="unique client id", default=secrets.token_hex(8))
 
 args = parser.parse_args()
 
