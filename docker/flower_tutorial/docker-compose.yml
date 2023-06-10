@@ -14,7 +14,7 @@ services:
     environment:
       SERVER_IP: "localhost"
       NUM_CLIENTS: 3
-      NUM_ROUNDS: 100
+      NUM_ROUNDS: 15
       NUM_LOCAL_EPOCHS: 5
     network_mode: "host"
   data-split-service:
@@ -23,7 +23,7 @@ services:
       context: ../../
       dockerfile: ./docker/flower_tutorial/data_split_service/Dockerfile
     environment:
-      N_SAMPLES: 15000
+      N_SAMPLES: 10000
       N_SPLITS: 3
       MANUAL_SEED: 1
     network_mode: "host"
