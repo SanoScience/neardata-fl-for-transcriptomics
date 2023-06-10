@@ -11,11 +11,11 @@ class NumExamples(TypedDict):
     testset: int
 
 
-class CIFAR10:
+class MNIST:
     def __init__(self, root: str, data_split_indices: List[int], train_test_ratio: float = 0.7) -> None:
         transform = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+            transforms.Normalize((0.1307,), (0.3081,))
         ])
 
         self.full_dataset = self._get_full_dataset(root, transform)
@@ -37,9 +37,9 @@ class CIFAR10:
     def get_num_examples(self) -> NumExamples:
         return NumExamples(trainset=len(self.train_indices), testset=len(self.test_indices))
 
-    def _get_full_dataset(self, root: str, transform: transforms.Compose) -> torchvision.datasets.CIFAR10:
-        trainset = torchvision.datasets.CIFAR10(
+    def _get_full_dataset(self, root: str, transform: transforms.Compose) -> torchvision.datasets.MNIST:
+        trainset = torchvision.datasets.MNIST(
             root=root, train=True, download=True, transform=transform)
-        testset = torchvision.datasets.CIFAR10(
+        testset = torchvision.datasets.MNIST(
             root=root, train=False, download=True, transform=transform)
         return torch.utils.data.ConcatDataset([trainset, testset])

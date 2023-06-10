@@ -7,9 +7,9 @@ import logging
 import flwr
 import requests
 
-from core.datasets.cifar_10 import CIFAR10
-from core.models.cifar_10.SimpleCNN import SimpleCNN
-from fl.flower_tutorial.actors.simple_client import CifarClient
+from core.datasets.mnist import MNIST
+from core.models.mnist.SimpleCNN import SimpleCNN
+from fl.flower_tutorial.actors.mnist_client import MnistClient
 
 logging.basicConfig()
 logger = logging.getLogger("fl_tutorial_server")
@@ -21,7 +21,7 @@ parser.add_argument("--server-ip", dest="server_ip",
 parser.add_argument("--data-split-server-ip", dest="data_split_server_ip",
                     help="ip of the data split server", default="localhost")
 parser.add_argument("--client-id", dest="client_id",
-                    help="unique client id", default=secrets.token_hex(8))
+                    help="unique client id", default=int(secrets.token_hex(4), 16))
 
 args = parser.parse_args()
 
@@ -34,9 +34,12 @@ data_split_server_endpoint = f"http://{args.data_split_server_ip}:8080/get_data_
 data_split_key = "split_indices"
 data_split_indices = json.loads(requests.get(data_split_server_endpoint).json()[data_split_key])
 
-DEFAULT_DATASET_ROOT = "./data/raw/cifar_10"
-dataset = CIFAR10(root=DEFAULT_DATASET_ROOT, data_split_indices=data_split_indices)
+DEFAULT_DATASET_ROOT = "./data/raw/mnist"
+# dataset = CIFAR10(root=DEFAULT_DATASET_ROOT, data_split_indices=data_split_indices)
+dataset = MNIST(root=DEFAULT_DATASET_ROOT, data_split_indices=data_split_indices)
 
 net = SimpleCNN()
+# flwr.client.start_numpy_client(
+#     server_address=f"{args.server_ip}:8081", client=CifarClient(net, dataset, args.client_id))
 flwr.client.start_numpy_client(
-    server_address=f"{args.server_ip}:8081", client=CifarClient(net, dataset, args.client_id))
+    server_address=f"{args.server_ip}:8081", client=MnistClient(net, dataset, args.client_id))
