@@ -7,12 +7,23 @@ services:
       SERVER_IP: "localhost"
     network_mode: "host"
   server:
+    container_name: "server"
     build:
       context: ../../
       dockerfile: ./docker/flower_tutorial/server/Dockerfile
     environment:
       SERVER_IP: "localhost"
-      NUM_CLIENTS: 2
-    ports:
-      - 8081:8081
+      NUM_CLIENTS: 3
+      NUM_ROUNDS: 100
+      NUM_LOCAL_EPOCHS: 5
+    network_mode: "host"
+  data-split-service:
+    container_name: "data-split-service"
+    build:
+      context: ../../
+      dockerfile: ./docker/flower_tutorial/data_split_service/Dockerfile
+    environment:
+      N_SAMPLES: 15000
+      N_SPLITS: 3
+      MANUAL_SEED: 1
     network_mode: "host"

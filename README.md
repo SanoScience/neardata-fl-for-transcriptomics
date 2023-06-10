@@ -31,7 +31,11 @@ NEPTUNE_API_TOKEN=xxx
 ```
 ## Running flower tutorial example
 ### Running locally
-After setting up the environment, you can instantiate the server by running:
+First, run the data split service, which is a http server that assigns samples to each client (example for a dataset with 60000 samples):
+```bash
+python3 fl/flower_tutorial/scripts/run_data_split_service.py --n-samples=60000 --n-splits 3
+```
+You can instantiate the FL server by running:
 ```bash
 python fl/flower_tutorial/scripts/run_server.py --num-clients 3 --server-ip localhost
 ```
@@ -53,7 +57,11 @@ sbatch -n 4 run_flower_tutorial.sh 3
 ```
 This script will run a parallel job a server + 3 clients on 4 nodes.
 ### Running through Docker Compose
-You can run the workflow using Docker Compose. First, instantiate the server container:
+You can run the workflow using Docker Compose. First, the data split service:
+```bash
+docker compose -f ./docker/flower_tutorial/docker-compose.yml up -d data-split-service
+```
+Second, instantiate the server container:
 ```bash
 docker compose -f ./docker/flower_tutorial/docker-compose.yml up --build -d server
 ```

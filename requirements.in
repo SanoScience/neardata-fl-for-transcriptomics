@@ -4,3 +4,6 @@ torchaudio
 flwr
 neptune
 python-dotenv
+fastapi
+uvicorn[standard]
+

@@ -40,4 +40,4 @@ async def get_data_split():
 
 if __name__ == "__main__":
     uvicorn.run("fl.flower_tutorial.scripts.run_data_split_service:app",
-                host="localhost", port=8080, reload=True)
+                host="localhost", port=8080)
