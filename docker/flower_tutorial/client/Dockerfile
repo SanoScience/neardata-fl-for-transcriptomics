@@ -2,8 +2,6 @@
 
 FROM python:3.10-slim-buster
 
-ENV SERVER_IP "localhost"
-
 WORKDIR /app
 
 COPY ./requirements.in requirements.in
@@ -18,4 +16,4 @@ RUN pip3 install -e .
 
 COPY . .
 
-CMD python3 fl/flower_tutorial/scripts/run_client.py --server-ip=$SERVER_IP
+CMD python3 fl/flower_tutorial/scripts/run_client.py --server-ip=$SERVER_IP --data-split-service-ip=$DATA_SPLIT_SERVICE_IP

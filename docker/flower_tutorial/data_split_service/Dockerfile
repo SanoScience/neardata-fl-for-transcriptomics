@@ -2,8 +2,6 @@
 
 FROM python:3.10-slim-buster
 
-ENV N_SAMPLES 1000
-ENV N_SPLITS 2
 ENV MANUAL_SEED 1
 
 WORKDIR /app

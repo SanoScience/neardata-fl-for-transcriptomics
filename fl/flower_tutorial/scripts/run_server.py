@@ -23,7 +23,7 @@ run = neptune.init_run(
 
 parser = argparse.ArgumentParser("federated_server")
 parser.add_argument("--server-ip", dest="server_ip",
-                    help="ip of the server", default="localhost")
+                    help="ip of the server")
 parser.add_argument("--num-clients", dest="num_clients",
                     help="number of clients in the federation", default=2, type=int)
 parser.add_argument("--num-rounds", dest="num_rounds",
