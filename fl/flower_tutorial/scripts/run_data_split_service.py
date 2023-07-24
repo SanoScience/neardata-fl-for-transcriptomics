@@ -8,6 +8,8 @@ import uvicorn
 import json
 
 parser = argparse.ArgumentParser("data_split_service")
+parser.add_argument("--service-ip", dest="service_ip",
+                    help="ip of the data split service", required=True, type=str)
 parser.add_argument("--n-splits", dest="n_splits",
                     help="number of splits", required=True, type=int)
 parser.add_argument("--n-samples", dest="n_samples",
@@ -40,4 +42,4 @@ async def get_data_split():
 
 if __name__ == "__main__":
     uvicorn.run("fl.flower_tutorial.scripts.run_data_split_service:app",
-                host="data-split-service", port=8080)
+                host=args.service_ip, port=8080)

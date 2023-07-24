@@ -7,6 +7,7 @@ ENV MANUAL_SEED 1
 WORKDIR /app
 
 COPY ./requirements.in requirements.in
+COPY ./requirements.txt requirements.txt
 
 COPY ./setup.py setup.py
 
@@ -18,4 +19,4 @@ RUN pip3 install -e .
 
 COPY ./fl/flower_tutorial/scripts/run_data_split_service.py ./fl/flower_tutorial/scripts/run_data_split_service.py
 
-CMD python3 fl/flower_tutorial/scripts/run_data_split_service.py --n-samples=$N_SAMPLES --n-splits=$N_SPLITS --manual-seed=$MANUAL_SEED
+CMD python3 fl/flower_tutorial/scripts/run_data_split_service.py --service-ip=$SERVICE_IP --n-samples=$N_SAMPLES --n-splits=$N_SPLITS --manual-seed=$MANUAL_SEED

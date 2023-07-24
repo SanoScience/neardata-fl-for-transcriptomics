@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.29.0 (997957870)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: flower-tutorial
+  name: flower-tutorial
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: flower-tutorial
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.29.0 (997957870)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/flower-tutorial-default: "true"
+        io.kompose.service: flower-tutorial
+    spec:
+      containers:
+        - env:
+            - name: NUM_CLIENTS
+              value: "3"
+            - name: NUM_LOCAL_EPOCHS
+              value: "5"
+            - name: NUM_ROUNDS
+              value: "15"
+            - name: SERVER_IP
+              value: "127.0.0.1"
+          image: flower_tutorial-server
+          name: server
+          resources: {}
+          imagePullPolicy: Never
+        - env:
+            - name: MANUAL_SEED
+              value: "1"
+            - name: N_SAMPLES
+              value: "10000"
+            - name: N_SPLITS
+              value: "3"
+            - name: SERVICE_IP
+              value: "127.0.0.1"
+          image: flower_tutorial-data-split-service
+          name: data-split-service
+          resources: {}
+          imagePullPolicy: Never
+        - env:
+            - name: DATA_SPLIT_SERVICE_IP
+              value: "127.0.0.1"
+            - name: SERVER_IP
+              value: "127.0.0.1"
+          image: flower_tutorial-client
+          name: client
+          resources: {}
+          imagePullPolicy: Never
+      restartPolicy: Always
+status: {}
