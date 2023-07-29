@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fl-orchestrator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fl-orchestrator-service
+  template:
+    metadata:
+      labels:
+        app: fl-orchestrator-service
+    spec:
+      containers:
+        - env:
+            - name: NUM_CLIENTS
+              value: "3"
+            - name: NUM_LOCAL_EPOCHS
+              value: "5"
+            - name: NUM_ROUNDS
+              value: "15"
+            - name: SERVER_IP
+              value: "0.0.0.0"
+          image: flower_tutorial-server
+          name: fl-server
+          resources: {}
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+        - env:
+            - name: MANUAL_SEED
+              value: "1"
+            - name: N_SAMPLES
+              value: "10000"
+            - name: N_SPLITS
+              value: "3"
+            - name: SERVICE_IP
+              value: "0.0.0.0"
+          image: flower_tutorial-data-split-service
+          name: data-split-service
+          resources: {}
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
