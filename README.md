@@ -39,7 +39,7 @@ You can instantiate the FL server by running:
 ```bash
 python fl/flower_tutorial/scripts/run_server.py --num-clients 3 --server-ip localhost
 ```
-The ```--num-clients``` argument is the minimum number of clients the federated learning round can start with. The ```--serve-ip``` argument is the address of the server.
+The ```--num-clients``` argument is the minimum number of clients the federated learning round can start with. The ```--server-ip``` argument is the address of the server.
 The client can be instantiated by running:
 ```bash
 python fl/flower_tutorial/scripts/run_client.py --server-ip localhost
