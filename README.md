@@ -33,16 +33,16 @@ NEPTUNE_API_TOKEN=xxx
 ### Running locally
 First, run the data split service, which is a http server that assigns samples to each client (example for a dataset with 60000 samples):
 ```bash
-python3 fl/flower_tutorial/scripts/run_data_split_service.py --n-samples=60000 --n-splits 3
+python3 fl/flower_tutorial/scripts/run_data_split_service.py --service-ip localhost --n-samples=60000 --n-splits 3 --manual-seed 1
 ```
 You can instantiate the FL server by running:
 ```bash
-python fl/flower_tutorial/scripts/run_server.py --num-clients 3 --server-ip localhost
+python3 fl/flower_tutorial/scripts/run_server.py --num-clients 3 --server-ip localhost --num-rounds 50 --num-local-epochs 1
 ```
 The ```--num-clients``` argument is the minimum number of clients the federated learning round can start with. The ```--server-ip``` argument is the address of the server.
 The client can be instantiated by running:
 ```bash
-python fl/flower_tutorial/scripts/run_client.py --server-ip localhost
+python3 fl/flower_tutorial/scripts/run_client.py --server-ip localhost --data-split-service-ip localhost 
 ```
 Clients and server are using port ```8081```.
 ### Running through SLURM
