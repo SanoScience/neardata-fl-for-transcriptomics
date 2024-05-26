@@ -86,5 +86,19 @@ The client can be instantiated by running:
 python3 fl/genotypes/scripts/run_client.py --server-ip localhost --data-split-service-ip localhost 
 ```
 Clients and server are using port ```8081```.
+### Running through Docker Compose
+You can run the workflow using Docker Compose. First, the data split service:
+```bash
+docker compose -f ./docker/genotypes/docker-compose.yml up -d data-split-service
+```
+Second, instantiate the server container:
+```bash
+docker compose -f ./docker/genotypes/docker-compose.yml up -d server
+```
+Then, you can build and start client containers:
+```bash
+docker compose -f ./docker/genotypes/docker-compose.yml up -d --scale client=2
+```
+The ```--scale``` flag will allow you to instantiate a number of client containers, in this case, 4.
 ## License
 This project is licensed under the MIT License 
