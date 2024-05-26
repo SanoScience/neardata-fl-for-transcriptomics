@@ -70,6 +70,21 @@ Then, you can build and start client containers:
 docker compose -f ./docker/flower_tutorial/docker-compose.yml up --build -d --scale client=4
 ```
 The ```--scale``` flag will allow you to instantiate a number of client containers, in this case, 4.
-
+## Running genotypes use case
+### Running locally
+First, run the data split service, which is a http server that assigns samples to each client (example for a dataset with 60000 samples):
+```bash
+python3 fl/genotypes/scripts/run_data_split_service.py --service-ip localhost --n-samples=400 --n-splits 2 --manual-seed 1
+```
+You can instantiate the FL server by running:
+```bash
+python3 fl/genotypes/scripts/run_server.py --num-clients 2 --server-ip localhost --num-rounds 2 --num-local-epochs 1
+```
+The ```--num-clients``` argument is the minimum number of clients the federated learning round can start with. The ```--server-ip``` argument is the address of the server.
+The client can be instantiated by running:
+```bash
+python3 fl/genotypes/scripts/run_client.py --server-ip localhost --data-split-service-ip localhost 
+```
+Clients and server are using port ```8081```.
 ## License
 This project is licensed under the MIT License 
