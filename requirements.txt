@@ -214,6 +214,7 @@ wheel==0.40.0
     # via
     #   nvidia-cublas-cu11
     #   nvidia-cuda-runtime-cu11
+scikit-learn==1.5.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

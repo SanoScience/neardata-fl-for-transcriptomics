@@ -6,4 +6,4 @@ neptune
 python-dotenv
 fastapi
 uvicorn[standard]
-
+scikit-learn
