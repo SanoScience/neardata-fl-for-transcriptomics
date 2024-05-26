@@ -1,0 +1,28 @@
+services:
+  client:
+    build:
+      context: ../../
+      dockerfile: ./docker/genotypes/client/Dockerfile
+    environment:
+      SERVER_IP: "server"
+      DATA_SPLIT_SERVICE_IP: "data-split-service"
+  server:
+    container_name: "server"
+    build:
+      context: ../../
+      dockerfile: ./docker/genotypes/server/Dockerfile
+    environment:
+      SERVER_IP: "server"
+      NUM_CLIENTS: 2
+      NUM_ROUNDS: 15
+      NUM_LOCAL_EPOCHS: 5
+  data-split-service:
+    container_name: "data-split-service"
+    build:
+      context: ../../
+      dockerfile: ./docker/genotypes/data_split_service/Dockerfile
+    environment:
+      SERVICE_IP: "data-split-service"
+      N_SAMPLES: 400
+      N_SPLITS: 2
+      MANUAL_SEED: 1
