@@ -16,6 +16,8 @@ services:
       NUM_CLIENTS: 2
       NUM_ROUNDS: 15
       NUM_LOCAL_EPOCHS: 5
+    ports:
+      - "8081:8081"
   data-split-service:
     container_name: "data-split-service"
     build:
@@ -26,3 +28,5 @@ services:
       N_SAMPLES: 400
       N_SPLITS: 2
       MANUAL_SEED: 1
+    ports:
+      - "8080:8080"
