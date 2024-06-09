@@ -1,0 +1,32 @@
+services:
+  client:
+    build:
+      context: ../../../../
+      dockerfile: ./docker/genotypes/client/Dockerfile
+    environment:
+      SERVER_IP: "zurich-demo-vm-server"
+      DATA_SPLIT_SERVICE_IP: "zurich-demo-vm-server"
+  server:
+    container_name: "server"
+    build:
+      context: ../../../../
+      dockerfile: ./docker/genotypes/server/Dockerfile
+    environment:
+      SERVER_IP: "0.0.0.0"
+      NUM_CLIENTS: 2
+      NUM_ROUNDS: 15
+      NUM_LOCAL_EPOCHS: 5
+    ports:
+      - "8081:8081"
+  data-split-service:
+    container_name: "data-split-service"
+    build:
+      context: ../../../../
+      dockerfile: ./docker/genotypes/data_split_service/Dockerfile
+    environment:
+      SERVICE_IP: "0.0.0.0"
+      N_SAMPLES: 400
+      N_SPLITS: 2
+      MANUAL_SEED: 1
+    ports:
+      - "8080:8080"
