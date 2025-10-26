@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ```
 ### Install also neardata-fl-for-transcriptomics from source to run scripts from the root dir.
 ```
-pip install .
+pip install -e .
 ```
 ### We use NeptuneAI as the MLOps tool. The api token should be stored in .env file, so that python-dotenv package can load it as an env variable. The .env file should have the following entry, where 'xxx' is the api token:
 ```bash

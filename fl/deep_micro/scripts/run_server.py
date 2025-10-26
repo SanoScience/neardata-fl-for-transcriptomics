@@ -7,7 +7,7 @@ import flwr as fl
 import neptune
 from dotenv import load_dotenv
 
-from core.utils.server_utils import logged_weighted_average
+from core.utils.server_utils import logged_weighted_average_ae
 
 load_dotenv()
 
@@ -67,7 +67,7 @@ strategy = fl.server.strategy.FedAvg(
     min_available_clients=args.num_clients,
     min_fit_clients=args.num_clients,
     min_evaluate_clients=args.num_clients,
-    evaluate_metrics_aggregation_fn=logged_weighted_average(run),
+    evaluate_metrics_aggregation_fn=logged_weighted_average_ae(run),
     on_fit_config_fn=lambda _: CONFIG,
 )
 
